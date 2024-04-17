@@ -1,4 +1,9 @@
 # Bind Docker
+[![Nightly](https://img.shields.io/github/actions/workflow/status/john-ea/docker-bind/action_schedule.yml?style=for-the-badge&logo=github&event=schedule&label=Nightly)](https://github.com/john-ea/docker-bind/actions/workflows/action_schedule.yml)
+[![Build](https://img.shields.io/github/actions/workflow/status/john-ea/docker-bind/action_branch.yml?style=for-the-badge&logo=github&event=push&label=Build)](https://github.com/john-ea/docker-bind/actions/workflows/action_branch.yml)
+[![Docker pulls](https://img.shields.io/docker/pulls/johnea/bind.svg?style=for-the-badge&logo=docker)](https://hub.docker.com/r/johnea/bind/tags)
+
+___
 
 [![Tag](https://img.shields.io/github/tag/cytopia/docker-bind.svg)](https://github.com/cytopia/docker-bind/releases)
 [![lint](https://github.com/cytopia/docker-bind/workflows/lint/badge.svg)](https://github.com/cytopia/docker-bind/actions?query=workflow%3Alint)
@@ -9,7 +14,7 @@
 [![Discord](https://img.shields.io/discord/1051541389256704091?color=8c9eff&label=Discord&logo=discord)](https://discord.gg/2wP3V6kBj4)
 [![Discourse](https://img.shields.io/discourse/https/devilbox.discourse.group/status.svg?colorB=%234CB697&label=Discourse&logo=discourse)](https://devilbox.discourse.group)
 
-**Available Architectures:**  `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6`, `ppc64le`, `s390x`, `mips64le`
+**Available Architectures:**  `amd64`, `arm/v7`
 
 [![](https://img.shields.io/docker/pulls/cytopia/bind.svg)](https://hub.docker.com/r/cytopia/bind)
 
@@ -27,7 +32,7 @@ Bind caching DNS server based on Alpine and Debian slim with support for DNS for
 
 [`latest`][tag_latest] [`stable`][tag_stable] [`alpine`][tag_alpine]
 ```bash
-docker pull cytopia/bind
+docker pull johnea/bind
 ```
 
 [tag_latest]: Dockerfiles/Dockerfile.latest
@@ -40,11 +45,11 @@ The following Docker image tags are rolling releases and are built and updated e
 
 [![nightly](https://github.com/cytopia/docker-bind/workflows/nightly/badge.svg)](https://github.com/cytopia/docker-bind/actions?query=workflow%3Anightly)
 
-| Docker Tag                       | Git Ref      | Available Architectures                                                      |
-|----------------------------------|--------------|------------------------------------------------------------------------------|
-| **[`latest`][tag_latest]**       | master       | `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6`, `ppc64le`, `s390x`, `mips64le` |
-| [`stable`][tag_stable]           | master       | `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6`, `ppc64le`, `s390x`, `mips64le` |
-| [`alpine`][tag_alpine]           | master       | `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6`, `ppc64le`, `s390x`, `mips64le` |
+| Docker Tag                       | Git Ref      | Available Architectures |
+|----------------------------------|--------------|-------------------------|
+| **[`latest`][tag_latest]**       | master       | `amd64`, `arm64`        |
+| [`stable`][tag_stable]           | master       | `amd64`, `arm64`        |
+| [`alpine`][tag_alpine]           | master       | `amd64`, `arm64`        |
 
 #### Point in time releases
 
@@ -52,11 +57,11 @@ The following Docker image tags are built once and can be used for reproducible 
 
 [![build](https://github.com/cytopia/docker-bind/workflows/build/badge.svg)](https://github.com/cytopia/docker-bind/actions?query=workflow%3Abuild)
 
-| Docker Tag                       | Git Ref      | Available Architectures                                                       |
-|----------------------------------|--------------|-------------------------------------------------------------------------------|
-| **[`<tag>`][tag_latest]**        | git: `<tag>` |  `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6`, `ppc64le`, `s390x`, `mips64le` |
-| [`<tag>-stable`][tag_stable]     | git: `<tag>` |  `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6`, `ppc64le`, `s390x`, `mips64le` |
-| [`<tag>-alpine`][tag_alpine]     | git: `<tag>` |  `amd64`, `i386`, `arm64`, `arm/v7`, `arm/v6`, `ppc64le`, `s390x`, `mips64le` |
+| Docker Tag                       | Git Ref      | Available Architectures |
+|----------------------------------|--------------|-------------------------|
+| **[`<tag>`][tag_latest]**        | git: `<tag>` |  `amd64`, `arm64`       |
+| [`<tag>-stable`][tag_stable]     | git: `<tag>` |  `amd64`, `arm64`       |
+| [`<tag>-alpine`][tag_alpine]     | git: `<tag>` |  `amd64`, `arm64`       |
 
 > 🛈 Where `<tag>` refers to the chosen git tag from this repository.<br/>
 > ⚠ **Warning:** The latest available git tag is also build every night and considered a rolling tag.
@@ -317,7 +322,7 @@ Exposing the port is mandatory if you want to use it for your host operating sys
 docker run -i \
     -p 53:53/tcp \
     -p 53:53/udp \
-    -t cytopia/bind
+    -t johnea/bind
 ```
 
 #### Wildcard domain
@@ -329,7 +334,7 @@ docker run -i \
     -p 53:53/tcp \
     -p 53:53/udp \
     -e DNS_A='*.example.com=192.168.0.1' \
-    -t cytopia/bind
+    -t johnea/bind
 ```
 
 #### Wildcard subdomain
@@ -341,7 +346,7 @@ docker run -i \
     -p 53:53/tcp \
     -p 53:53/udp \
     -e DNS_A='*.aws.example.com=192.168.0.1' \
-    -t cytopia/bind
+    -t johnea/bind
 ```
 
 #### Wildcard TLD
@@ -353,7 +358,7 @@ docker run -i \
     -p 53:53/tcp \
     -p 53:53/udp \
     -e DNS_A='*.loc=192.168.0.4' \
-    -t cytopia/bind
+    -t johnea/bind
 ```
 
 #### Wildcard TLD and reverse DNS entry
@@ -366,7 +371,7 @@ docker run -i \
     -p 53:53/udp \
     -e DNS_A='*.loc=192.168.0.4, loc=192.168.0.4' \
     -e DNS_PTR='192.168.0.4=host.loc' \
-    -t cytopia/bind
+    -t johnea/bind
 ```
 
 #### Wildcard TLD and DNS resolver
@@ -386,7 +391,7 @@ docker run -i \
     -p 53:53/udp \
     -e DNS_A='*.loc=192.168.0.1' \
     -e DNS_FORWARDER=10.0.15.1,10.0.15.2 \
-    -t cytopia/bind
+    -t johnea/bind
 ```
 
 #### Wildcard TLD, DNS resolver and extra hosts
@@ -404,7 +409,7 @@ docker run -i \
     -e DNS_A='*.loc=192.168.0.1, host5.loc=192.168.0.2, host5.org=192.168.0.3' \
     -e DNS_PTR='192.168.0.2=host5.loc, 192.168.0.3=host5.org' \
     -e DNS_FORWARDER=10.0.15.1,10.0.15.2 \
-    -t cytopia/bind
+    -t johnea/bind
 ```
 
 #### Extra hosts, DNS resolver, allow query, and allow recursion
@@ -427,7 +432,7 @@ docker run -i \
     -e DNS_FORWARDER=8.8.8.8,8.8.4.4 \
     -e ALLOW_QUERY=192.168.0.0/24,127.0.0.1 \
     -e ALLOW_RECURSION=192.168.0.0/24,127.0.0.1 \
-    -t cytopia/bind
+    -t johnea/bind
 ```
 
 ## 🔧 Host integration
@@ -451,7 +456,7 @@ sudo systemctl restart network-manager
 This will make sure that whenever your `/etc/resolv.conf` is deployed, you will have `127.0.0.1`
 as the first entry and also make use of any other DNS server which are deployed via the LAN's DHCP server.
 
-If `cytopia/bind` is not running, it does not affect the name resolution, because you will still
+If `johnea/bind` is not running, it does not affect the name resolution, because you will still
 have entries in `/etc/resolv.conf`.
 
 
@@ -503,7 +508,6 @@ Show some love for the following sister projects.
   <td><a title="Bind DNS Server" href="https://github.com/cytopia/docker-bind" ><img width="256px" src="https://raw.githubusercontent.com/devilbox/artwork/master/submissions_banner/cytopia/06/png/banner_256_trans.png" /></a></td>
   <td><a href="https://github.com/cytopia/docker-bind"><code>docker-bind</code></a></td>
   <td><a href="https://hub.docker.com/r/cytopia/bind"><code>cytopia/bind</code></a></td>
- </tr>
  </tr>
 </table>
 
@@ -588,3 +592,5 @@ Ansible: [cytopia](https://galaxy.ansible.com/cytopia)
 **[MIT License](LICENSE.md)**
 
 Copyright (c) 2022 [cytopia](https://github.com/cytopia)
+
+Thanks to [cytopia](https://github.com/cytopia) and the [devilbox](https://github.com/devilbox) project. 

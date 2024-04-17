@@ -24,9 +24,10 @@ include $(MAKEFILES)
 TAG        = latest
 
 # Makefile.docker overwrites
+DOCKER_USER       = johnea
 NAME       = Bind
 VERSION    = latest
-IMAGE      = cytopia/bind
+IMAGE      = $(DOCKER_USER)/bind
 FLAVOUR    = latest
 DIR        = Dockerfiles
 FILE       = Dockerfile.$(FLAVOUR)

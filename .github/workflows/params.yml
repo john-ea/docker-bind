@@ -15,14 +15,8 @@ env:
       {
         "NAME":    "Bind",
         "VERSION": ["9"],
-        "FLAVOUR": ["stable", "latest"],
-        "ARCH":    ["linux/amd64", "linux/386", "linux/arm64", "linux/arm/v7", "linux/arm/v6", "linux/ppc64le", "linux/s390x", "linux/mips64le"]
-      },
-      {
-        "NAME":    "Bind",
-        "VERSION": ["9"],
-        "FLAVOUR": ["alpine"],
-        "ARCH":    ["linux/amd64", "linux/386", "linux/arm64", "linux/arm/v7", "linux/arm/v6", "linux/ppc64le", "linux/s390x"]
+        "FLAVOUR": ["alpine", "stable", "latest"],
+        "ARCH":    ["linux/amd64", "linux/arm64"]
       }
     ]
 
@@ -39,6 +33,21 @@ on:
       refs:
         description: "The determined git ref matrix (only during scheduled run)"
         value: ${{ jobs.params.outputs.refs }}
+    inputs:
+      matrix:
+        description: 'The version build matrix as JSON string ( list of objects: [{NAME, VERSION[], ARCH[]}] ).'
+        required: false
+        type: string
+      default_branch:
+        description: 'The default branch of this repository to fetch latest tags from.'
+        required: false
+        default: ${{ github.event.repository.default_branch }}
+        type: string
+      branches:
+        description: 'Comma separated list of branches to create build matrix for.'
+        required: false
+        default: ${{ github.event.repository.default_branch }}
+        type: string
 
 jobs:
   params:
@@ -49,17 +58,26 @@ jobs:
       refs: ${{ steps.set-refs.outputs.matrix }}
 
     steps:
+      - name: "[DEBUG] Workflow Inputs"
+        shell: bash
+        run: |
+          echo 'matrix: ${{ inputs.matrix }} '
+          echo 'default_branch: ${{ inputs.default_branch }} '
+          echo 'branches: ${{ inputs.branches }} '
+
       - name: "[Set-Output] Matrix"
         id: set-matrix
+        env:
+          MATRIX: ${{ inputs.matrix || env.MATRIX }}
         run: |
           echo "matrix=$( echo '${{ env.MATRIX }}' | jq -M -c )" >> $GITHUB_OUTPUT
 
       - name: "[Set-Output] Matrix 'Refs' (master branch and latest tag)"
         id: set-refs
-        uses: cytopia/git-ref-matrix-action@v0.1.13
+        uses: john-ea/devilbox-actions/.github/actions/git-ref-matrix-action@master
         with:
-          repository_default_branch: master
-          branches: master
+          repository_default_branch: ${{ inputs.default_branch }}
+          branches: ${{ inputs.branches }}
           num_latest_tags: 1
         if: github.event_name == 'schedule'
 
