@@ -5,6 +5,11 @@
 
 ___
 
+The original Bind Docker was created and maintained by [cytopia](https://github.com/cytopia) in the [cytopia/docker-bind](https://github.com/cytopia/docker-bind) repository.
+
+Thanks to [cytopia](https://github.com/cytopia) and the [devilbox](https://github.com/devilbox) project.
+___
+
 [![Tag](https://img.shields.io/github/tag/cytopia/docker-bind.svg)](https://github.com/cytopia/docker-bind/releases)
 [![lint](https://github.com/cytopia/docker-bind/workflows/lint/badge.svg)](https://github.com/cytopia/docker-bind/actions?query=workflow%3Alint)
 [![build](https://github.com/cytopia/docker-bind/workflows/build/badge.svg)](https://github.com/cytopia/docker-bind/actions?query=workflow%3Abuild)
@@ -592,5 +597,3 @@ Ansible: [cytopia](https://galaxy.ansible.com/cytopia)
 **[MIT License](LICENSE.md)**
 
 Copyright (c) 2022 [cytopia](https://github.com/cytopia)
-
-Thanks to [cytopia](https://github.com/cytopia) and the [devilbox](https://github.com/devilbox) project. 
